@@ -1,31 +1,302 @@
-/vendor/
-node_modules/
-npm-debug.log
-yarn-error.log
 
-# Laravel 4 specific
-bootstrap/compiled.php
-app/storage/
+# ============================================================
+# RIPPLE - Root .gitignore
+# Laravel + Rust + React + NixOS + Docker + Infrastructure
+# ============================================================
 
-# Laravel 5 & Lumen specific
-public/storage
-public/hot
 
-# Laravel 5 & Lumen specific with changed public path
-public_html/storage
-public_html/hot
+# ------------------------------------------------------------
+# Environment variables and secrets
+# ------------------------------------------------------------
 
-storage/*.key
 .env
-Homestead.yaml
-Homestead.json
-/.vagrant
-.phpunit.result.cache
-/.phpunit.cache
+.env.*
+!.env.example
+!.env.*.example
+!.env.*.sample
+!.env.*.template
 
-/public/build
-/storage/pail
-.env.backup
-.env.production
-.phpactor.json
-auth.json
+# Private keys and certificates
+*.key
+*.pem
+*.p12
+*.pfx
+*.jks
+id_rsa
+id_ed25519
+id_ecdsa
+*.ppk
+
+# Local secret files
+secrets/*.local*
+infra/secrets/*.local*
+
+
+# ------------------------------------------------------------
+# Laravel / PHP
+# ------------------------------------------------------------
+
+/backend/vendor/
+/backend/node_modules/
+/backend/public/build/
+/backend/public/hot
+/backend/public/storage
+
+# Laravel generated cache
+/backend/bootstrap/cache/*.php
+/backend/storage/framework/cache/data/*
+/backend/storage/framework/sessions/*
+/backend/storage/framework/testing/*
+/backend/storage/framework/views/*
+
+# Logs
+/backend/storage/logs/*
+/backend/*.log
+
+# Uploaded files and generated storage
+/backend/storage/app/private/*
+/backend/storage/app/public/*
+
+# Preserve Laravel directory placeholders
+!/backend/storage/logs/.gitignore
+!/backend/storage/framework/cache/data/.gitignore
+!/backend/storage/framework/sessions/.gitignore
+!/backend/storage/framework/testing/.gitignore
+!/backend/storage/framework/views/.gitignore
+!/backend/storage/app/private/.gitignore
+!/backend/storage/app/public/.gitignore
+!/backend/bootstrap/cache/.gitignore
+
+# SQLite databases
+/backend/database/*.sqlite
+/backend/database/*.sqlite3
+
+# PHPUnit / Pest
+/backend/.phpunit.cache/
+/backend/.phpunit.result.cache
+/backend/.pest/
+
+# Composer
+/backend/composer.phar
+
+
+# ------------------------------------------------------------
+# Rust / Cargo
+# ------------------------------------------------------------
+
+/analyzer/target/
+**/*.rs.bk
+*.pdb
+
+# Rust analyzer/editor caches
+**/.rustc_info.json
+
+
+# ------------------------------------------------------------
+# React / Node / Vite
+# ------------------------------------------------------------
+
+/ripple/node_modules/
+/ripple/dist/
+/ripple/build/
+/ripple/.vite/
+/ripple/.cache/
+/ripple/coverage/
+/ripple/.next/
+/ripple/.turbo/
+/ripple/.parcel-cache/
+/ripple/.svelte-kit/
+
+# Package manager logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Package manager local stores
+/ripple/.pnpm-store/
+
+
+# ------------------------------------------------------------
+# NixOS / Nix Flakes / Development Environments
+# ------------------------------------------------------------
+
+# Nix build outputs
+/result
+/result-*
+
+# Direnv
+.direnv/
+
+# Devenv
+.devenv/
+
+# Nix-generated temporary files
+*.drv
+
+# Local virtual machines and disk images
+*.qcow2
+*.vdi
+*.vmdk
+*.vhd
+*.vhdx
+*.iso
+*.img
+*.raw
+
+
+# ------------------------------------------------------------
+# Docker / Compose / Runtime data
+# ------------------------------------------------------------
+
+# Local persistent container data
+/infra/data/
+/infra/volumes/
+/infra/runtime/
+/volumes/
+
+# Local Docker-related state
+.docker/
+
+# Docker build caches
+**/.docker-build/
+
+# Container logs
+**/container-logs/
+
+
+# ------------------------------------------------------------
+# Monitoring and observability data
+# ------------------------------------------------------------
+
+# Gatus
+/infra/data/gatus/
+
+# Beszel
+/infra/data/beszel/
+
+# Umami
+/infra/data/umami/
+
+# Other monitoring databases and runtime data
+/infra/monitoring/data/
+
+
+# ------------------------------------------------------------
+# Backups / Database dumps
+# ------------------------------------------------------------
+
+/backups/
+/infra/backups/
+/restic-repo/
+/infra/restic-repo/
+
+*.dump
+*.sql
+*.sql.gz
+*.sqlite-wal
+*.sqlite-shm
+*.db-wal
+*.db-shm
+
+# Temporary backup files
+*.backup
+*.bak
+*.old
+
+
+# ------------------------------------------------------------
+# Terraform / Infrastructure state
+# ------------------------------------------------------------
+
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+
+# Local Terraform variables
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+
+
+# ------------------------------------------------------------
+# Logs / temporary files
+# ------------------------------------------------------------
+
+*.log
+*.pid
+*.seed
+*.tmp
+*.temp
+*.swp
+*.swo
+*.orig
+*.rej
+*.cache
+
+# Temporary directories
+tmp/
+temp/
+
+
+# ------------------------------------------------------------
+# Testing / coverage
+# ------------------------------------------------------------
+
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+blob-report/
+
+
+# ------------------------------------------------------------
+# Operating systems
+# ------------------------------------------------------------
+
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+Thumbs.db:encryptable
+Desktop.ini
+$RECYCLE.BIN/
+
+
+# ------------------------------------------------------------
+# IDEs / editors
+# ------------------------------------------------------------
+
+.idea/
+*.sublime-workspace
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+.vscode/*.log
+.vscode/.ropeproject/
+
+
+# ------------------------------------------------------------
+# Python (useful for future scripts)
+# ------------------------------------------------------------
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+
+# ------------------------------------------------------------
+# Miscellaneous
+# ------------------------------------------------------------
+
+*.sw?
+*.orig
+.DS_Store?
