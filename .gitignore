@@ -85,6 +85,7 @@ infra/secrets/*.local*
 # ------------------------------------------------------------
 
 /analyzer/target/
+
 **/*.rs.bk
 *.pdb
 
@@ -106,7 +107,8 @@ infra/secrets/*.local*
 /ripple/.turbo/
 /ripple/.parcel-cache/
 /ripple/.svelte-kit/
-
+/ripple/src-tauri/target/
+/ripple/src-tauri/gen/
 # Package manager logs
 npm-debug.log*
 yarn-debug.log*
