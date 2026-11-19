@@ -9,7 +9,6 @@ use App\Http\Controllers\SignalTransitionController;
 use App\Models\Community;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-use Throwable;
 
 Route::post("/auth/register", [AuthController::class, "register"]);
 Route::post("/auth/login", [AuthController::class, "login"])->middleware(
@@ -26,7 +25,7 @@ Route::get("/health", function () {
 Route::get("/ready", function () {
     try {
         DB::connection()->getPdo();
-    } catch (Throwable) {
+    } catch (\Throwable) {
         return response()->json(["status" => "unavailable"], 503);
     }
 

@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "identifier": "com.alina.ripple",
   "build": {
-    "beforeDevCommand": "bun run dev",
+    "beforeDevCommand": "bun node_modules/vite/bin/vite.js",
     "devUrl": "http://localhost:1420",
     "beforeBuildCommand": "bun run build",
     "frontendDist": "../dist"
@@ -12,9 +12,11 @@
   "app": {
     "windows": [
       {
-        "title": "ripple",
-        "width": 800,
-        "height": 600
+        "title": "Ripple",
+        "width": 1100,
+        "height": 780,
+        "minWidth": 380,
+        "minHeight": 520
       }
     ],
     "security": {

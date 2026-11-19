@@ -1,51 +1,63 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/core";
-import "./App.css";
+import { useEffect, useState } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { RouterProvider, createHashRouter } from "react-router-dom";
+import { ApiError } from "./api/client";
+import { AppShell } from "./components/AppShell";
+import { ProtectedRoute } from "./routes/ProtectedRoute";
+import { LoginPage } from "./features/auth/LoginPage";
+import { RegisterPage } from "./features/auth/RegisterPage";
+import { CommunitiesPage } from "./features/communities/CommunitiesPage";
+import { SignalListPage } from "./features/signals/SignalListPage";
+import { NewSignalPage } from "./features/signals/NewSignalPage";
+import { SignalDetailPage } from "./features/signals/SignalDetailPage";
+import { NotFoundPage } from "./features/NotFoundPage";
 
-function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
+const router = createHashRouter([
+  { path: "/login", element: <LoginPage /> },
+  { path: "/register", element: <RegisterPage /> },
+  {
+    element: (
+      <ProtectedRoute>
+        <AppShell />
+      </ProtectedRoute>
+    ),
+    children: [
+      { index: true, element: <CommunitiesPage /> },
+      { path: "c/:communityId", element: <SignalListPage /> },
+      { path: "c/:communityId/new", element: <NewSignalPage /> },
+      { path: "s/:signalId", element: <SignalDetailPage /> },
+      { path: "*", element: <NotFoundPage /> },
+    ],
+  },
+]);
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
-  }
+export default function App() {
+  const [client] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 15_000,
+            refetchOnWindowFocus: false,
+            retry: (failureCount, error) =>
+              !(error instanceof ApiError && error.status < 500) &&
+              failureCount < 1,
+          },
+          mutations: { retry: false },
+        },
+      }),
+  );
+
+  useEffect(() => {
+    const onUnauthorized = () => client.setQueryData(["me"], null);
+    window.addEventListener("ripple:unauthorized", onUnauthorized);
+    return () =>
+      window.removeEventListener("ripple:unauthorized", onUnauthorized);
+  }, [client]);
 
   return (
-    <main className="container">
-      <h1>Welcome to Tauri + React</h1>
-
-      <div className="row">
-        <a href="https://vite.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-      <form
-        className="row"
-        onSubmit={(e) => {
-          e.preventDefault();
-          greet();
-        }}
-      >
-        <input
-          id="greet-input"
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
-        />
-        <button type="submit">Greet</button>
-      </form>
-      <p>{greetMsg}</p>
-    </main>
+    <QueryClientProvider client={client}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   );
 }
-
-export default App;

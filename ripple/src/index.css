@@ -1,0 +1,72 @@
+@import "tailwindcss";
+@import "@fontsource/fira-sans/latin-400.css";
+@import "@fontsource/fira-sans/latin-500.css";
+@import "@fontsource/fira-sans/latin-600.css";
+@import "@fontsource/fira-sans/latin-700.css";
+@import "@fontsource/fira-code/latin-400.css";
+@import "@fontsource/fira-code/latin-500.css";
+@import "@fontsource/fira-code/latin-600.css";
+
+@theme {
+  --font-sans: "Fira Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Fira Code", ui-monospace, SFMono-Regular, monospace;
+
+  --color-paper: #f4f6f4;
+  --color-surface: #ffffff;
+  --color-ink: #12201c;
+  --color-ink-soft: #52635e;
+  --color-ink-faint: #6b7a76;
+  --color-line: #dce4e1;
+  --color-line-strong: #c2cfcb;
+
+  --color-teal: #0b6f60;
+  --color-teal-dark: #075548;
+  --color-teal-wash: #e6f2ee;
+
+  --color-flare: #b4530c;
+  --color-flare-dark: #8f3f07;
+  --color-flare-wash: #fbede4;
+
+  --color-info: #1d4ed8;
+  --color-info-wash: #e8eefb;
+
+  --color-done: #15803d;
+  --color-done-wash: #e6f4ea;
+
+  --radius-panel: 14px;
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: #c8e9e1;
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-teal);
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
