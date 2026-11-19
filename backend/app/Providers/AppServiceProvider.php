@@ -2,6 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Community;
+use App\Models\Signal;
+use App\Policies\CommunityPolicy;
+use App\Policies\SignalPolicy;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Gate::policy(Community::class, CommunityPolicy::class);
+        Gate::policy(Signal::class, SignalPolicy::class);
     }
 }

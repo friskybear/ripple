@@ -20,11 +20,20 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     "priority",
     "analysis_status",
     "resolution_note",
+    "resolved_at",
 ])]
 class Signal extends Model
 {
     /** @use HasFactory<\Database\Factories\SignalFactory> */
     use HasFactory;
+
+    /** @return array<string, string> */
+    protected function casts(): array
+    {
+        return [
+            "resolved_at" => "datetime",
+        ];
+    }
 
     /** @return BelongsTo<Community, $this> */
     public function community(): BelongsTo

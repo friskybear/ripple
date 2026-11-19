@@ -96,7 +96,7 @@ class AuthTest extends TestCase
 
     public function testMeRequiresAuthentication(): void
     {
-        $this->fromSpa()->getJson("/api/auth/me")->assertUnauthorized();
+        $this->fromSpa()->getJson("/api/me")->assertUnauthorized();
     }
 
     public function testUserCanLogOut(): void
