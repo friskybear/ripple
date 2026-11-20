@@ -30,8 +30,14 @@ const router = createHashRouter([
     ],
   },
 ]);
+function x(count: number): number {
+  return count + 1;
+}
+interface AppProps {
+  initialCount?: number;
+}
 
-export default function App() {
+export default function App(props: AppProps) {
   const [client] = useState(
     () =>
       new QueryClient({
@@ -58,6 +64,8 @@ export default function App() {
   return (
     <QueryClientProvider client={client}>
       <RouterProvider router={router} />
+      <div onClick={() => setCount(2)}></div>
+      <div>{count}</div>
     </QueryClientProvider>
   );
 }

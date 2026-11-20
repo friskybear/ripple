@@ -1,0 +1,28 @@
+{
+  "signal": {
+    "id": 12,
+    "title": "Wifi drops every hour",
+    "description": "The router in lab 2 disconnects for about a minute.",
+    "category": "network",
+    "zone": "lab-2",
+    "impact": 4,
+    "confirmations": 2,
+    "created_at": "2026-11-01T09:00:00Z"
+  },
+  "candidates": [
+    {
+      "id": 7,
+      "title": "Wifi keeps disconnecting",
+      "description": "Lab 2 router drops the connection about once an hour.",
+      "category": "network",
+      "zone": "lab-2"
+    },
+    {
+      "id": 8,
+      "title": "Broken chair",
+      "description": "The left armrest is loose in the cafe.",
+      "category": "furniture",
+      "zone": "cafe"
+    }
+  ]
+}
